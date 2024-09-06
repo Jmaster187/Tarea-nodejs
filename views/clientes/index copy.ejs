@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+</head>
+<body>
+    <h1>Formulario clientes</h1>
+    <form action="/crud_c" method="post">
+        <input type="text" id="txt_id" name="txt_id" placeholder="0">
+        <input type="text" id="txt_nit" name="txt_nit" placeholder="Ingrese su nit">
+        <input type="text" id="txt_nombres" name="txt_nombres" placeholder="Nombres">
+        <input type="text" id="txt_apellidos" name="txt_apellidos" placeholder="Apellidos">
+        <input type="text" id="txt_direccion" name="txt_direccion" placeholder="Direccion">
+        <input type="text" id="txt_telefono" name="txt_telefono" placeholder="Telefono">
+        <input type="date" id="txt_fn" name="txt_fn" placeholder="yyyy-mm-dd">
+        
+        <button type="submit" id="btn_crear" name="btn_crear" value="crear">Crear</button>
+        <button type="submit" id="btn_crear" name="btn_actualizar" value="Actualizar">Actualizar</button>
+        <button type="submit" id="btn_crear" name="btn_borrar" value="Borrar">Borrar</button>
+        
+    </form>
+    <table border="1px">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>nit</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>direccion</th>
+                <th>telefono</th>
+                <th>fecha de nacimiento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% resultado.forEach ((cliente)=> { %>
+            <tr>
+                <td><%= cliente.id_cliente %></td>
+                <td><%= cliente.nit %></td>
+                <td><%= cliente.nombres %></td>
+                <td><%= cliente.apellidos %></td>
+                <td><%= cliente.direccion %></td>
+                <td><%= cliente.telefono %></td>
+                <td><%= cliente.fecha_nacimiento %></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <!--ventana modal-->
+    <div class="container mt-3">
+        <h3>Modal Example</h3>
+        <p>Click on the button to open the modal.</p>
+        
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+          Open modal
+        </button>
+      </div>
+      
+      <!-- The Modal -->
+      <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Modal Heading</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body">
+              Modal body..
+            </div>
+      
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+      
+          </div>
+        </div>
+      </div>
+</body>
+</html>
