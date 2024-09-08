@@ -57,14 +57,15 @@
                     <tbody>
                         <% resultado.forEach((estudiante) => { %>
                             <tr class="table-row" 
+                                data-id_estudiante="<%= estudiante.id_estudiante %>"
                                 data-carne="<%= estudiante.carne %>" 
                                 data-nombres="<%= estudiante.nombres %>" 
                                 data-apellidos="<%= estudiante.apellidos %>" 
                                 data-direccion="<%= estudiante.direccion %>" 
                                 data-telefono="<%= estudiante.telefono %>" 
                                 data-correo="<%= estudiante.correo %>" 
-                                data-sangre="<%= estudiante.id_tipo_sangre %>" 
-                                data-fecha_nacimiento="<%= new Date(estudiante.fecha_nacimiento).toISOString().split('T')[0] %>">
+                                data-sangre="<%= estudiante.sangre %>" 
+                                data-fecha_nacimiento="<%= estudiante.fecha_nacimiento && !isNaN(new Date(estudiante.fecha_nacimiento)) ? new Date(estudiante.fecha_nacimiento).toISOString().split('T')[0] : '' %>">
                                 <td><%= estudiante.carne %></td>
                                 <td><%= estudiante.nombres %></td>
                                 <td><%= estudiante.apellidos %></td>
@@ -91,7 +92,7 @@
                             <div class="container mt-3">
                                 <form action="/crud_e" method="post">
                                     <div class="mb-3">
-                                        <input type="number" class="form-control" id="txt_id" name="txt_id" placeholder="Colocar id para actualizar o eliminar">
+                                        <input type="number" class="form-control" id="txt_id_estudiante" name="txt_id_estudiante" placeholder="0" readonly>
                                     </div>
                                     <div class="mb-3">
                                         <input type="text" class="form-control" id="txt_carne" name="txt_carne" placeholder="E001" pattern="^E[0-9]{3}$">
@@ -159,6 +160,7 @@
                 rows.forEach(row => {
                     row.addEventListener('click', function () {
                         // Obtener los valores de la fila seleccionada
+                        const id_estudiante = this.getAttribute('data-id_estudiante');
                         const carne = this.getAttribute('data-carne');
                         const nombres = this.getAttribute('data-nombres');
                         const apellidos = this.getAttribute('data-apellidos');
@@ -169,20 +171,33 @@
                         const fechaNacimiento = this.getAttribute('data-fecha_nacimiento');
 
                         // Rellenar los campos del formulario en el modal
-                        document.getElementById('txt_id').value = carne;
+                        document.getElementById('txt_id_estudiante').value = id_estudiante;
                         document.getElementById('txt_carne').value = carne;
                         document.getElementById('txt_nombres').value = nombres;
                         document.getElementById('txt_apellidos').value = apellidos;
                         document.getElementById('txt_direccion').value = direccion;
                         document.getElementById('txt_telefono').value = telefono;
                         document.getElementById('txt_correo').value = correo;
-                        document.getElementById('txt_id_sangre').value = sangre; // Selecciona el tipo de sangre
                         document.getElementById('txt_nacimiento').value = fechaNacimiento;
+
+                        const selectSangre = document.getElementById('txt_id_sangre');
+                        for (let i = 0; i < selectSangre.options.length; i++) {
+                            if (selectSangre.options[i].text === sangre) {
+                                selectSangre.selectedIndex = i;
+                                break;
+                            }
+                        }
 
                         // Abrir el modal
                         var myModal = new bootstrap.Modal(document.getElementById('myModal'));
                         myModal.show();
                     });
+                });
+                document.getElementById('btn_borrar').addEventListener('click', function (event) {
+                    const confirmation = confirm('Quiere eliminar este registro');
+                    if (!confirmation) {
+                        event.preventDefault();
+                    }
                 });
             });
         </script>

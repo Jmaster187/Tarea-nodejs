@@ -3,7 +3,7 @@ var crud_estudiante = ({});
 
 crud_estudiante.leer = (req, res) => {
     // Consulta para obtener los estudiantes con sus datos y el tipo de sangre asociado
-    conectar.query(`SELECT e.carne, e.nombres, e.apellidos, e.direccion, e.telefono, e.correo, 
+    conectar.query(`SELECT e.id_estudiante, e.carne, e.nombres, e.apellidos, e.direccion, e.telefono, e.correo, 
                     t.sangre, e.fecha_nacimiento 
                     FROM estudiantes e 
                     LEFT JOIN tipos_sangre t 
@@ -33,7 +33,7 @@ crud_estudiante.cud = (req,res)=>{
     const btn_agregar = req.body.btn_agregar;
     const btn_actualizar = req.body.btn_actualizar;
     const btn_borrar = req.body.btn_borrar;
-    const id = req.body.txt_id;
+    const id = req.body.txt_id_estudiante;
     const carne = req.body.txt_carne;
     const nombres = req.body.txt_nombres;
     const apellidos = req.body.txt_apellidos;
